@@ -1,0 +1,903 @@
+State 16 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: stmt $end
+
+    1 stmt: logical_expr SEMICOLON
+
+    2 logical_expr: logical_expr OR logical_expr
+    3             | logical_expr AND logical_expr
+    4             | NOT logical_expr
+    5             | rel_expr
+    6             | LPAREN logical_expr RPAREN
+
+    7 rel_expr: arith_expr GT arith_expr
+    8         | arith_expr LT arith_expr
+    9         | arith_expr GE arith_expr
+   10         | arith_expr LE arith_expr
+   11         | arith_expr EQ arith_expr
+   12         | arith_expr NE arith_expr
+   13         | LPAREN rel_expr RPAREN
+
+   14 arith_expr: arith_expr PLUS term
+   15           | arith_expr MINUS term
+   16           | term
+
+   17 term: term MUL factor
+   18     | term DIV factor
+   19     | term MOD factor
+   20     | factor
+
+   21 factor: IDENTIFIER
+   22       | NUMBER
+   23       | LPAREN arith_expr RPAREN
+   24       | MINUS factor
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+IDENTIFIER (258) 21
+NUMBER (259) 22
+GT (260) 7
+LT (261) 8
+GE (262) 9
+LE (263) 10
+EQ (264) 11
+NE (265) 12
+PLUS (266) 14
+MINUS (267) 15 24
+MUL (268) 17
+DIV (269) 18
+MOD (270) 19
+AND (271) 3
+OR (272) 2
+NOT (273) 4
+LPAREN (274) 6 13 23
+RPAREN (275) 6 13 23
+SEMICOLON (276) 1
+UMINUS (277)
+
+
+Nonterminals, with rules where they appear
+
+$accept (23)
+    on left: 0
+stmt (24)
+    on left: 1, on right: 0
+logical_expr (25)
+    on left: 2 3 4 5 6, on right: 1 2 3 4 6
+rel_expr (26)
+    on left: 7 8 9 10 11 12 13, on right: 5 13
+arith_expr (27)
+    on left: 14 15 16, on right: 7 8 9 10 11 12 14 15 23
+term (28)
+    on left: 17 18 19 20, on right: 14 15 16 17 18 19
+factor (29)
+    on left: 21 22 23 24, on right: 17 18 19 20 24
+
+
+state 0
+
+    0 $accept: . stmt $end
+    1 stmt: . logical_expr SEMICOLON
+    2 logical_expr: . logical_expr OR logical_expr
+    3             | . logical_expr AND logical_expr
+    4             | . NOT logical_expr
+    5             | . rel_expr
+    6             | . LPAREN logical_expr RPAREN
+    7 rel_expr: . arith_expr GT arith_expr
+    8         | . arith_expr LT arith_expr
+    9         | . arith_expr GE arith_expr
+   10         | . arith_expr LE arith_expr
+   11         | . arith_expr EQ arith_expr
+   12         | . arith_expr NE arith_expr
+   13         | . LPAREN rel_expr RPAREN
+   14 arith_expr: . arith_expr PLUS term
+   15           | . arith_expr MINUS term
+   16           | . term
+   17 term: . term MUL factor
+   18     | . term DIV factor
+   19     | . term MOD factor
+   20     | . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    NOT         shift, and go to state 4
+    LPAREN      shift, and go to state 5
+
+    stmt          go to state 6
+    logical_expr  go to state 7
+    rel_expr      go to state 8
+    arith_expr    go to state 9
+    term          go to state 10
+    factor        go to state 11
+
+
+state 1
+
+   21 factor: IDENTIFIER .
+
+    $default  reduce using rule 21 (factor)
+
+
+state 2
+
+   22 factor: NUMBER .
+
+    $default  reduce using rule 22 (factor)
+
+
+state 3
+
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+   24       | MINUS . factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    LPAREN      shift, and go to state 12
+
+    factor  go to state 13
+
+
+state 4
+
+    2 logical_expr: . logical_expr OR logical_expr
+    3             | . logical_expr AND logical_expr
+    4             | . NOT logical_expr
+    4             | NOT . logical_expr
+    5             | . rel_expr
+    6             | . LPAREN logical_expr RPAREN
+    7 rel_expr: . arith_expr GT arith_expr
+    8         | . arith_expr LT arith_expr
+    9         | . arith_expr GE arith_expr
+   10         | . arith_expr LE arith_expr
+   11         | . arith_expr EQ arith_expr
+   12         | . arith_expr NE arith_expr
+   13         | . LPAREN rel_expr RPAREN
+   14 arith_expr: . arith_expr PLUS term
+   15           | . arith_expr MINUS term
+   16           | . term
+   17 term: . term MUL factor
+   18     | . term DIV factor
+   19     | . term MOD factor
+   20     | . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    NOT         shift, and go to state 4
+    LPAREN      shift, and go to state 5
+
+    logical_expr  go to state 14
+    rel_expr      go to state 8
+    arith_expr    go to state 9
+    term          go to state 10
+    factor        go to state 11
+
+
+state 5
+
+    2 logical_expr: . logical_expr OR logical_expr
+    3             | . logical_expr AND logical_expr
+    4             | . NOT logical_expr
+    5             | . rel_expr
+    6             | . LPAREN logical_expr RPAREN
+    6             | LPAREN . logical_expr RPAREN
+    7 rel_expr: . arith_expr GT arith_expr
+    8         | . arith_expr LT arith_expr
+    9         | . arith_expr GE arith_expr
+   10         | . arith_expr LE arith_expr
+   11         | . arith_expr EQ arith_expr
+   12         | . arith_expr NE arith_expr
+   13         | . LPAREN rel_expr RPAREN
+   13         | LPAREN . rel_expr RPAREN
+   14 arith_expr: . arith_expr PLUS term
+   15           | . arith_expr MINUS term
+   16           | . term
+   17 term: . term MUL factor
+   18     | . term DIV factor
+   19     | . term MOD factor
+   20     | . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   23       | LPAREN . arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    NOT         shift, and go to state 4
+    LPAREN      shift, and go to state 5
+
+    logical_expr  go to state 15
+    rel_expr      go to state 16
+    arith_expr    go to state 17
+    term          go to state 10
+    factor        go to state 11
+
+
+state 6
+
+    0 $accept: stmt . $end
+
+    $end  shift, and go to state 18
+
+
+state 7
+
+    1 stmt: logical_expr . SEMICOLON
+    2 logical_expr: logical_expr . OR logical_expr
+    3             | logical_expr . AND logical_expr
+
+    AND        shift, and go to state 19
+    OR         shift, and go to state 20
+    SEMICOLON  shift, and go to state 21
+
+
+state 8
+
+    5 logical_expr: rel_expr .
+
+    $default  reduce using rule 5 (logical_expr)
+
+
+state 9
+
+    7 rel_expr: arith_expr . GT arith_expr
+    8         | arith_expr . LT arith_expr
+    9         | arith_expr . GE arith_expr
+   10         | arith_expr . LE arith_expr
+   11         | arith_expr . EQ arith_expr
+   12         | arith_expr . NE arith_expr
+   14 arith_expr: arith_expr . PLUS term
+   15           | arith_expr . MINUS term
+
+    GT     shift, and go to state 22
+    LT     shift, and go to state 23
+    GE     shift, and go to state 24
+    LE     shift, and go to state 25
+    EQ     shift, and go to state 26
+    NE     shift, and go to state 27
+    PLUS   shift, and go to state 28
+    MINUS  shift, and go to state 29
+
+
+state 10
+
+   16 arith_expr: term .  [GT, LT, GE, LE, EQ, NE, PLUS, MINUS, AND, OR, RPAREN, SEMICOLON]
+   17 term: term . MUL factor
+   18     | term . DIV factor
+   19     | term . MOD factor
+
+    MUL  shift, and go to state 30
+    DIV  shift, and go to state 31
+    MOD  shift, and go to state 32
+
+    $default  reduce using rule 16 (arith_expr)
+
+
+state 11
+
+   20 term: factor .
+
+    $default  reduce using rule 20 (term)
+
+
+state 12
+
+   14 arith_expr: . arith_expr PLUS term
+   15           | . arith_expr MINUS term
+   16           | . term
+   17 term: . term MUL factor
+   18     | . term DIV factor
+   19     | . term MOD factor
+   20     | . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   23       | LPAREN . arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    LPAREN      shift, and go to state 12
+
+    arith_expr  go to state 33
+    term        go to state 10
+    factor      go to state 11
+
+
+state 13
+
+   24 factor: MINUS factor .
+
+    $default  reduce using rule 24 (factor)
+
+
+state 14
+
+    2 logical_expr: logical_expr . OR logical_expr
+    3             | logical_expr . AND logical_expr
+    4             | NOT logical_expr .  [AND, OR, RPAREN, SEMICOLON]
+
+    $default  reduce using rule 4 (logical_expr)
+
+    Conflict between rule 4 and token AND resolved as reduce (AND < NOT).
+    Conflict between rule 4 and token OR resolved as reduce (OR < NOT).
+
+
+state 15
+
+    2 logical_expr: logical_expr . OR logical_expr
+    3             | logical_expr . AND logical_expr
+    6             | LPAREN logical_expr . RPAREN
+
+    AND     shift, and go to state 19
+    OR      shift, and go to state 20
+    RPAREN  shift, and go to state 34
+
+
+state 16
+
+    5 logical_expr: rel_expr .  [AND, OR, RPAREN]
+   13 rel_expr: LPAREN rel_expr . RPAREN
+
+    RPAREN  shift, and go to state 35
+
+    RPAREN    [reduce using rule 5 (logical_expr)]
+    $default  reduce using rule 5 (logical_expr)
+
+
+state 17
+
+    7 rel_expr: arith_expr . GT arith_expr
+    8         | arith_expr . LT arith_expr
+    9         | arith_expr . GE arith_expr
+   10         | arith_expr . LE arith_expr
+   11         | arith_expr . EQ arith_expr
+   12         | arith_expr . NE arith_expr
+   14 arith_expr: arith_expr . PLUS term
+   15           | arith_expr . MINUS term
+   23 factor: LPAREN arith_expr . RPAREN
+
+    GT      shift, and go to state 22
+    LT      shift, and go to state 23
+    GE      shift, and go to state 24
+    LE      shift, and go to state 25
+    EQ      shift, and go to state 26
+    NE      shift, and go to state 27
+    PLUS    shift, and go to state 28
+    MINUS   shift, and go to state 29
+    RPAREN  shift, and go to state 36
+
+
+state 18
+
+    0 $accept: stmt $end .
+
+    $default  accept
+
+
+state 19
+
+    2 logical_expr: . logical_expr OR logical_expr
+    3             | . logical_expr AND logical_expr
+    3             | logical_expr AND . logical_expr
+    4             | . NOT logical_expr
+    5             | . rel_expr
+    6             | . LPAREN logical_expr RPAREN
+    7 rel_expr: . arith_expr GT arith_expr
+    8         | . arith_expr LT arith_expr
+    9         | . arith_expr GE arith_expr
+   10         | . arith_expr LE arith_expr
+   11         | . arith_expr EQ arith_expr
+   12         | . arith_expr NE arith_expr
+   13         | . LPAREN rel_expr RPAREN
+   14 arith_expr: . arith_expr PLUS term
+   15           | . arith_expr MINUS term
+   16           | . term
+   17 term: . term MUL factor
+   18     | . term DIV factor
+   19     | . term MOD factor
+   20     | . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    NOT         shift, and go to state 4
+    LPAREN      shift, and go to state 5
+
+    logical_expr  go to state 37
+    rel_expr      go to state 8
+    arith_expr    go to state 9
+    term          go to state 10
+    factor        go to state 11
+
+
+state 20
+
+    2 logical_expr: . logical_expr OR logical_expr
+    2             | logical_expr OR . logical_expr
+    3             | . logical_expr AND logical_expr
+    4             | . NOT logical_expr
+    5             | . rel_expr
+    6             | . LPAREN logical_expr RPAREN
+    7 rel_expr: . arith_expr GT arith_expr
+    8         | . arith_expr LT arith_expr
+    9         | . arith_expr GE arith_expr
+   10         | . arith_expr LE arith_expr
+   11         | . arith_expr EQ arith_expr
+   12         | . arith_expr NE arith_expr
+   13         | . LPAREN rel_expr RPAREN
+   14 arith_expr: . arith_expr PLUS term
+   15           | . arith_expr MINUS term
+   16           | . term
+   17 term: . term MUL factor
+   18     | . term DIV factor
+   19     | . term MOD factor
+   20     | . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    NOT         shift, and go to state 4
+    LPAREN      shift, and go to state 5
+
+    logical_expr  go to state 38
+    rel_expr      go to state 8
+    arith_expr    go to state 9
+    term          go to state 10
+    factor        go to state 11
+
+
+state 21
+
+    1 stmt: logical_expr SEMICOLON .
+
+    $default  reduce using rule 1 (stmt)
+
+
+state 22
+
+    7 rel_expr: arith_expr GT . arith_expr
+   14 arith_expr: . arith_expr PLUS term
+   15           | . arith_expr MINUS term
+   16           | . term
+   17 term: . term MUL factor
+   18     | . term DIV factor
+   19     | . term MOD factor
+   20     | . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    LPAREN      shift, and go to state 12
+
+    arith_expr  go to state 39
+    term        go to state 10
+    factor      go to state 11
+
+
+state 23
+
+    8 rel_expr: arith_expr LT . arith_expr
+   14 arith_expr: . arith_expr PLUS term
+   15           | . arith_expr MINUS term
+   16           | . term
+   17 term: . term MUL factor
+   18     | . term DIV factor
+   19     | . term MOD factor
+   20     | . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    LPAREN      shift, and go to state 12
+
+    arith_expr  go to state 40
+    term        go to state 10
+    factor      go to state 11
+
+
+state 24
+
+    9 rel_expr: arith_expr GE . arith_expr
+   14 arith_expr: . arith_expr PLUS term
+   15           | . arith_expr MINUS term
+   16           | . term
+   17 term: . term MUL factor
+   18     | . term DIV factor
+   19     | . term MOD factor
+   20     | . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    LPAREN      shift, and go to state 12
+
+    arith_expr  go to state 41
+    term        go to state 10
+    factor      go to state 11
+
+
+state 25
+
+   10 rel_expr: arith_expr LE . arith_expr
+   14 arith_expr: . arith_expr PLUS term
+   15           | . arith_expr MINUS term
+   16           | . term
+   17 term: . term MUL factor
+   18     | . term DIV factor
+   19     | . term MOD factor
+   20     | . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    LPAREN      shift, and go to state 12
+
+    arith_expr  go to state 42
+    term        go to state 10
+    factor      go to state 11
+
+
+state 26
+
+   11 rel_expr: arith_expr EQ . arith_expr
+   14 arith_expr: . arith_expr PLUS term
+   15           | . arith_expr MINUS term
+   16           | . term
+   17 term: . term MUL factor
+   18     | . term DIV factor
+   19     | . term MOD factor
+   20     | . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    LPAREN      shift, and go to state 12
+
+    arith_expr  go to state 43
+    term        go to state 10
+    factor      go to state 11
+
+
+state 27
+
+   12 rel_expr: arith_expr NE . arith_expr
+   14 arith_expr: . arith_expr PLUS term
+   15           | . arith_expr MINUS term
+   16           | . term
+   17 term: . term MUL factor
+   18     | . term DIV factor
+   19     | . term MOD factor
+   20     | . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    LPAREN      shift, and go to state 12
+
+    arith_expr  go to state 44
+    term        go to state 10
+    factor      go to state 11
+
+
+state 28
+
+   14 arith_expr: arith_expr PLUS . term
+   17 term: . term MUL factor
+   18     | . term DIV factor
+   19     | . term MOD factor
+   20     | . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    LPAREN      shift, and go to state 12
+
+    term    go to state 45
+    factor  go to state 11
+
+
+state 29
+
+   15 arith_expr: arith_expr MINUS . term
+   17 term: . term MUL factor
+   18     | . term DIV factor
+   19     | . term MOD factor
+   20     | . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    LPAREN      shift, and go to state 12
+
+    term    go to state 46
+    factor  go to state 11
+
+
+state 30
+
+   17 term: term MUL . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    LPAREN      shift, and go to state 12
+
+    factor  go to state 47
+
+
+state 31
+
+   18 term: term DIV . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    LPAREN      shift, and go to state 12
+
+    factor  go to state 48
+
+
+state 32
+
+   19 term: term MOD . factor
+   21 factor: . IDENTIFIER
+   22       | . NUMBER
+   23       | . LPAREN arith_expr RPAREN
+   24       | . MINUS factor
+
+    IDENTIFIER  shift, and go to state 1
+    NUMBER      shift, and go to state 2
+    MINUS       shift, and go to state 3
+    LPAREN      shift, and go to state 12
+
+    factor  go to state 49
+
+
+state 33
+
+   14 arith_expr: arith_expr . PLUS term
+   15           | arith_expr . MINUS term
+   23 factor: LPAREN arith_expr . RPAREN
+
+    PLUS    shift, and go to state 28
+    MINUS   shift, and go to state 29
+    RPAREN  shift, and go to state 36
+
+
+state 34
+
+    6 logical_expr: LPAREN logical_expr RPAREN .
+
+    $default  reduce using rule 6 (logical_expr)
+
+
+state 35
+
+   13 rel_expr: LPAREN rel_expr RPAREN .
+
+    $default  reduce using rule 13 (rel_expr)
+
+
+state 36
+
+   23 factor: LPAREN arith_expr RPAREN .
+
+    $default  reduce using rule 23 (factor)
+
+
+state 37
+
+    2 logical_expr: logical_expr . OR logical_expr
+    3             | logical_expr . AND logical_expr
+    3             | logical_expr AND logical_expr .  [AND, OR, RPAREN, SEMICOLON]
+
+    $default  reduce using rule 3 (logical_expr)
+
+    Conflict between rule 3 and token AND resolved as reduce (%left AND).
+    Conflict between rule 3 and token OR resolved as reduce (OR < AND).
+
+
+state 38
+
+    2 logical_expr: logical_expr . OR logical_expr
+    2             | logical_expr OR logical_expr .  [OR, RPAREN, SEMICOLON]
+    3             | logical_expr . AND logical_expr
+
+    AND  shift, and go to state 19
+
+    $default  reduce using rule 2 (logical_expr)
+
+    Conflict between rule 2 and token AND resolved as shift (OR < AND).
+    Conflict between rule 2 and token OR resolved as reduce (%left OR).
+
+
+state 39
+
+    7 rel_expr: arith_expr GT arith_expr .  [AND, OR, RPAREN, SEMICOLON]
+   14 arith_expr: arith_expr . PLUS term
+   15           | arith_expr . MINUS term
+
+    PLUS   shift, and go to state 28
+    MINUS  shift, and go to state 29
+
+    $default  reduce using rule 7 (rel_expr)
+
+
+state 40
+
+    8 rel_expr: arith_expr LT arith_expr .  [AND, OR, RPAREN, SEMICOLON]
+   14 arith_expr: arith_expr . PLUS term
+   15           | arith_expr . MINUS term
+
+    PLUS   shift, and go to state 28
+    MINUS  shift, and go to state 29
+
+    $default  reduce using rule 8 (rel_expr)
+
+
+state 41
+
+    9 rel_expr: arith_expr GE arith_expr .  [AND, OR, RPAREN, SEMICOLON]
+   14 arith_expr: arith_expr . PLUS term
+   15           | arith_expr . MINUS term
+
+    PLUS   shift, and go to state 28
+    MINUS  shift, and go to state 29
+
+    $default  reduce using rule 9 (rel_expr)
+
+
+state 42
+
+   10 rel_expr: arith_expr LE arith_expr .  [AND, OR, RPAREN, SEMICOLON]
+   14 arith_expr: arith_expr . PLUS term
+   15           | arith_expr . MINUS term
+
+    PLUS   shift, and go to state 28
+    MINUS  shift, and go to state 29
+
+    $default  reduce using rule 10 (rel_expr)
+
+
+state 43
+
+   11 rel_expr: arith_expr EQ arith_expr .  [AND, OR, RPAREN, SEMICOLON]
+   14 arith_expr: arith_expr . PLUS term
+   15           | arith_expr . MINUS term
+
+    PLUS   shift, and go to state 28
+    MINUS  shift, and go to state 29
+
+    $default  reduce using rule 11 (rel_expr)
+
+
+state 44
+
+   12 rel_expr: arith_expr NE arith_expr .  [AND, OR, RPAREN, SEMICOLON]
+   14 arith_expr: arith_expr . PLUS term
+   15           | arith_expr . MINUS term
+
+    PLUS   shift, and go to state 28
+    MINUS  shift, and go to state 29
+
+    $default  reduce using rule 12 (rel_expr)
+
+
+state 45
+
+   14 arith_expr: arith_expr PLUS term .  [GT, LT, GE, LE, EQ, NE, PLUS, MINUS, AND, OR, RPAREN, SEMICOLON]
+   17 term: term . MUL factor
+   18     | term . DIV factor
+   19     | term . MOD factor
+
+    MUL  shift, and go to state 30
+    DIV  shift, and go to state 31
+    MOD  shift, and go to state 32
+
+    $default  reduce using rule 14 (arith_expr)
+
+
+state 46
+
+   15 arith_expr: arith_expr MINUS term .  [GT, LT, GE, LE, EQ, NE, PLUS, MINUS, AND, OR, RPAREN, SEMICOLON]
+   17 term: term . MUL factor
+   18     | term . DIV factor
+   19     | term . MOD factor
+
+    MUL  shift, and go to state 30
+    DIV  shift, and go to state 31
+    MOD  shift, and go to state 32
+
+    $default  reduce using rule 15 (arith_expr)
+
+
+state 47
+
+   17 term: term MUL factor .
+
+    $default  reduce using rule 17 (term)
+
+
+state 48
+
+   18 term: term DIV factor .
+
+    $default  reduce using rule 18 (term)
+
+
+state 49
+
+   19 term: term MOD factor .
+
+    $default  reduce using rule 19 (term)

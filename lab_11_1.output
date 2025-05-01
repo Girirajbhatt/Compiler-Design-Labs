@@ -1,0 +1,135 @@
+Terminals unused in grammar
+
+   LPAREN
+   RPAREN
+
+
+State 8 conflicts: 2 shift/reduce
+
+
+Grammar
+
+    0 $accept: S $end
+
+    1 S: P '\n'
+
+    2 P: P P
+    3  | '(' P ')'
+    4  | A
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'\n' (10) 1
+'(' (40) 3
+')' (41) 3
+error (256)
+LPAREN (258)
+RPAREN (259)
+A (260) 4
+
+
+Nonterminals, with rules where they appear
+
+$accept (9)
+    on left: 0
+S (10)
+    on left: 1, on right: 0
+P (11)
+    on left: 2 3 4, on right: 1 2 3
+
+
+state 0
+
+    0 $accept: . S $end
+
+    A    shift, and go to state 1
+    '('  shift, and go to state 2
+
+    S  go to state 3
+    P  go to state 4
+
+
+state 1
+
+    4 P: A .
+
+    $default  reduce using rule 4 (P)
+
+
+state 2
+
+    3 P: '(' . P ')'
+
+    A    shift, and go to state 1
+    '('  shift, and go to state 2
+
+    P  go to state 5
+
+
+state 3
+
+    0 $accept: S . $end
+
+    $end  shift, and go to state 6
+
+
+state 4
+
+    1 S: P . '\n'
+    2 P: P . P
+
+    A     shift, and go to state 1
+    '\n'  shift, and go to state 7
+    '('   shift, and go to state 2
+
+    P  go to state 8
+
+
+state 5
+
+    2 P: P . P
+    3  | '(' P . ')'
+
+    A    shift, and go to state 1
+    '('  shift, and go to state 2
+    ')'  shift, and go to state 9
+
+    P  go to state 8
+
+
+state 6
+
+    0 $accept: S $end .
+
+    $default  accept
+
+
+state 7
+
+    1 S: P '\n' .
+
+    $default  reduce using rule 1 (S)
+
+
+state 8
+
+    2 P: P . P
+    2  | P P .
+
+    A    shift, and go to state 1
+    '('  shift, and go to state 2
+
+    A         [reduce using rule 2 (P)]
+    '('       [reduce using rule 2 (P)]
+    $default  reduce using rule 2 (P)
+
+    P  go to state 8
+
+
+state 9
+
+    3 P: '(' P ')' .
+
+    $default  reduce using rule 3 (P)
