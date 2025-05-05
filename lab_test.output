@@ -1,0 +1,165 @@
+Grammar
+
+    0 $accept: input $end
+
+    1 input: LPAREN list RPAREN
+
+    2 list: element_list
+
+    3 element_list: element
+    4             | element_list COMMA element
+
+    5 element: ID
+    6        | NUM
+    7        | LPAREN list RPAREN
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+ID (258) 5
+NUM (259) 6
+COMMA (260) 4
+LPAREN (261) 1 7
+RPAREN (262) 1 7
+
+
+Nonterminals, with rules where they appear
+
+$accept (8)
+    on left: 0
+input (9)
+    on left: 1, on right: 0
+list (10)
+    on left: 2, on right: 1 7
+element_list (11)
+    on left: 3 4, on right: 2 4
+element (12)
+    on left: 5 6 7, on right: 3 4
+
+
+state 0
+
+    0 $accept: . input $end
+
+    LPAREN  shift, and go to state 1
+
+    input  go to state 2
+
+
+state 1
+
+    1 input: LPAREN . list RPAREN
+
+    ID      shift, and go to state 3
+    NUM     shift, and go to state 4
+    LPAREN  shift, and go to state 5
+
+    list          go to state 6
+    element_list  go to state 7
+    element       go to state 8
+
+
+state 2
+
+    0 $accept: input . $end
+
+    $end  shift, and go to state 9
+
+
+state 3
+
+    5 element: ID .
+
+    $default  reduce using rule 5 (element)
+
+
+state 4
+
+    6 element: NUM .
+
+    $default  reduce using rule 6 (element)
+
+
+state 5
+
+    7 element: LPAREN . list RPAREN
+
+    ID      shift, and go to state 3
+    NUM     shift, and go to state 4
+    LPAREN  shift, and go to state 5
+
+    list          go to state 10
+    element_list  go to state 7
+    element       go to state 8
+
+
+state 6
+
+    1 input: LPAREN list . RPAREN
+
+    RPAREN  shift, and go to state 11
+
+
+state 7
+
+    2 list: element_list .
+    4 element_list: element_list . COMMA element
+
+    COMMA  shift, and go to state 12
+
+    $default  reduce using rule 2 (list)
+
+
+state 8
+
+    3 element_list: element .
+
+    $default  reduce using rule 3 (element_list)
+
+
+state 9
+
+    0 $accept: input $end .
+
+    $default  accept
+
+
+state 10
+
+    7 element: LPAREN list . RPAREN
+
+    RPAREN  shift, and go to state 13
+
+
+state 11
+
+    1 input: LPAREN list RPAREN .
+
+    $default  reduce using rule 1 (input)
+
+
+state 12
+
+    4 element_list: element_list COMMA . element
+
+    ID      shift, and go to state 3
+    NUM     shift, and go to state 4
+    LPAREN  shift, and go to state 5
+
+    element  go to state 14
+
+
+state 13
+
+    7 element: LPAREN list RPAREN .
+
+    $default  reduce using rule 7 (element)
+
+
+state 14
+
+    4 element_list: element_list COMMA element .
+
+    $default  reduce using rule 4 (element_list)
